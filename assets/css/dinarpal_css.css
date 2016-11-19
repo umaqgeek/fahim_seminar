@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+.dinarpal_success {
+	color:#0C0;
+}
+
+.dinarpal_pending {
+	color:#06F;
+}
+
+.dinarpal_rejected {
+	color:#F00;
+}
+
+.dinarpal_completed {
+	color:#0C0;
+}

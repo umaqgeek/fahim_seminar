@@ -1,0 +1,178 @@
+.hero-bg .mb-button:focus,
+.hero-hugger a:focus,
+.hero-hugger .icon:focus,
+header #main-menu .closer:focus {
+    outline: 0;
+}
+.hero-bg .mb-button:focus {
+    box-shadow: 0 0 0 2px #fff;
+}
+/*hero*/
+
+/* HERO background */
+.hero-bg, .hero-bg .parallax-bg {
+    background-position: 60% center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.hero-bg .editorial-container:nth-child(2) {
+    text-align: center;
+}
+html[data-device-type="dedicated"] .hero.dark {
+    background-color: transparent;
+}
+.hero-bg p, .hero-bg ul li {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 18px;
+    font-size: 1.28571428571429rem;
+    line-height: 1.333em;
+}
+/*hatch text*/
+ .hero-bg .hatch {
+    display: block;
+    padding-top: 20px;
+    clear: left;
+    font-size: 15px;
+    font-size: 1.07142857142857rem;
+    line-height: 1.5em;
+}
+.hero-bg p {
+    font-weight: normal;
+}
+.hero-bg p a {
+    /*font-size: inherit;*/
+}
+.hero-bg a {
+    font-weight: bold;
+}
+.hero-bg .hatch strong {
+    color: #444;
+}
+html[data-device-type="dedicated"] .hero-bg img, html[data-device-type="portable"] .hero-bg img {
+    vertical-align: bottom;
+}
+html[data-device-type="dedicated"] .hero-bg.dark .editorial-container, html[data-device-type="portable"] .hero-bg.dark .editorial-container {
+    height: 25.71428571428571em;
+    /* 360px/14 */
+    line-height: 25.71428571428571em;
+    /* 360px/14 */
+}
+html[data-device-type="portable"] .hero-bg .editorial {
+    min-height: 530px;
+}
+html[data-device-type="portable"] .hero-bg .editorial-container {
+    height: 530px;
+    line-height: 530px;
+}
+.hero-bg, .editorial-bg {
+    overflow: hidden;
+}
+.hero-bg.parallax, .editorial-bg.parallax {
+    background-image: none;
+}
+.hero-bg .parallax-bg {
+    -webkit-transform: translate3d(0, 21px, 0);
+    transform: translate3d(0, 21px, 0);
+}
+html[data-device-type="dedicated"] .hero-bg, html[data-device-type="dedicated"] .editorial {
+    min-width: 71.71428571428571em;
+}
+ .row-fluid .content-block {
+    min-height: 540px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html[data-device-type="mobile"] .row-fluid .content-block {
+    min-height: 0;
+}
+.moving-background-container {
+  background-color: #000;
+}
+.moving-background {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+
+  background-color: transparent;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.moving-background video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: -1;
+  opacity: 0.5;
+
+  -webkit-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.moving-background.playing video {
+  opacity: 0.9;
+}
+.moving-background .mb-button {
+  display: block;
+  position: absolute;
+  right: 100px;
+  bottom: 100px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #fff;
+  border-radius: 22px;
+  color: #fff;
+  text-indent: -999em;
+}
+.moving-background .mb-button.pause {
+  display: none;
+}
+.moving-background .mb-button.play:after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 12px;
+  width: 0;
+  height: 0;
+  border: 14px solid transparent;
+  border-width: 7px 14px;
+  border-left-color: #fff;
+  overflow: hidden;
+}
+.moving-background .mb-button.pause:before {
+  content: '';
+  position: absolute;
+  top: 11px;
+  left: 13px;
+  width: 4px;
+  height: 14px;
+  border: 3px solid #fff;
+  border-top: none;
+  border-bottom: none;
+}
+.moving-background.playing .mb-button.play {
+  display: none;
+}
+.moving-background.playing .mb-button.pause {
+  display: block;
+}
+#fixed-top .filler {
+  height: 100%;
+}
+.hero-video-still .novideo-bg {
+    background-image: url("https://www.paypalobjects.com/webstatic/mktg/wright/videos/home-signup.jpg");
+}
+#hero.video-loaded > .novideo-bg {
+    display: none;
+}
+.moving-background.playing video {
+  opacity: 0.9;
+}
+.moving-background.playing .mb-button.play {
+  display: none;
+}
+.moving-background.playing .mb-button.pause {
+  display: block;
+}

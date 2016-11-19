@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+#container{
+	width:900px;
+	background-color:#333;
+	margin:auto;
+	}
+	
+#header{
+	width:100%;
+	height:60px;
+	background-color:#666;
+	}
+
+#contentleft{
+	width:140px!important;
+	float:left;
+	height:300px;
+	background:#069;
+	padding-left:10px;}
+	
+#contentright{
+	width:750px;
+	float:right;
+	background-color:#039;
+	height:300px;
+	}
+	
+#position{
+	position:relative;
+	float:right;
+	top:10px;
+	right:20px;
+	background-color:#FFF;
+	height:10px;
+	width:100px;
+	}
+	
+#footer{
+	background:#930;
+	height:100px;
+	float:left;
+	width:100%;
+	
+	}
