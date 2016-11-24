@@ -2,29 +2,47 @@
 <!-- Main -->
 <div id="main">
 
-    <!-- One -->
-    <section id="one">
-        <div class="container">
-            <h3>Title Post 1</h3>
-            <p>Post 1</p>
-        </div>
-    </section>
-
-    <!-- Two -->
-    <section id="two">
-        <div class="container">
-            <h3>Title Post 2</h3>
-            <p>Post 2</p>
-        </div>
-    </section>
-
-    <!-- Three -->
-    <section id="three">
-        <div class="container">
-            <h3>Title Post 3</h3>
-            <p>Post 3</p>
-        </div>
-    </section>
+    <?php 
+    if (isset($post_page) && !empty($post_page)) {
+        foreach ($post_page as $pp) {
+            ?>
+    
+    
+    
+    <?php
+        }
+    }
+    ?>
+    
+    <?php 
+            $i = 1;
+            if (isset($post_page) && !empty($post_page)) {
+                foreach ($post_page as $pp) {
+                    if ($i == 1) {
+                        ?>
+                    <!-- One -->
+                    <section id="one">
+                        <div class="container">
+                            <h3><?=$pp->pp_title; ?></h3>
+                            <p><?=$pp->pp_post; ?></p>
+                        </div>
+                    </section>
+            <?php
+                    } else {
+                    ?>
+                    <!-- One -->
+                    <section id="section_<?=$pp->pp_id; ?>">
+                        <div class="container">
+                            <h3><?=$pp->pp_title; ?></h3>
+                            <p><?=$pp->pp_post; ?></p>
+                        </div>
+                    </section>
+            <?php
+                    }
+            $i += 1;
+                }
+            }
+            ?>
 
     <!-- Four -->
     <section id="four">

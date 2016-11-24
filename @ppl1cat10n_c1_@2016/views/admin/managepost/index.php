@@ -4,12 +4,16 @@
     <!-- Two -->
     <section id="one1">
         <div class="container">
-            <header class="major">
-                <h2>Read Only</h2>
-                <p>Just an incredibly simple responsive site<br />
-                    template freebie by <a href="http://html5up.net">HTML5 UP</a>.</p>
-            </header>
-            <p>asdas</p>
+            <h2>Manage Post</h2>
+            <p>
+                <?php foreach($css_files as $file): ?>
+                    <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+                <?php endforeach; ?>
+                <?php foreach($js_files as $file): ?>
+                    <script src="<?php echo $file; ?>"></script>
+                <?php endforeach;?>
+                <?=$output?>
+            </p>
         </div>
     </section>
     

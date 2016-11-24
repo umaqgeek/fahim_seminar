@@ -10,7 +10,7 @@ class MY_Controller extends CI_Controller
 
 				if ( ! $this->simpleloginsecure->is_logged_in() OR ! in_array(strtolower(get_class($this)), $unlocked))
 				{
-					redirect('utama/loginpage');
+//					redirect('utama/loginpage');
 				}/*elseif($this->simpleloginsecure->is_logged_in() AND  in_array(strtolower(get_class($this)), $unlocked)){
 					redirect('admin/');
 				}*/

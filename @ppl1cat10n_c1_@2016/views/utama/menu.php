@@ -7,9 +7,24 @@
     </header>
     <nav id="nav">
         <ul>
-            <li><a href="#one">Post 1</a></li>
-            <li><a href="#two">Post 2</a></li>
-            <li><a href="#three">Post 3</a></li>
+            <?php 
+            $i = 1;
+            if (isset($post_page) && !empty($post_page)) {
+                foreach ($post_page as $pp) {
+                    if ($i == 1) {
+                        ?>
+            <li><a href="#one"><?=$pp->pp_title; ?></a></li>
+            <?php
+                    } else {
+                    ?>
+            <li><a href="#section_<?=$pp->pp_id; ?>"><?=$pp->pp_title; ?></a></li>
+            <?php
+                    }
+            $i += 1;
+                }
+            }
+            ?>
+            
             <li><a href="#four">Registration</a></li>
             <li><a href="<?=site_url('utama/loginpage'); ?>?page=login" <?php if ($page1 == 'login') { ?>class="active"<?php } ?>>Log In</a></li>
         </ul>

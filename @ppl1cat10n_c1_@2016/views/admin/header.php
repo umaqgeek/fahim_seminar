@@ -15,6 +15,15 @@
         
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/images/fitness.png">
         
+        <!-- Scripts -->
+        <script src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/jquery.scrollzer.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/jquery.scrolly.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/skel.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="<?= base_url(); ?>assets/js/main.js"></script>
+        
     </head>
     <body>
 

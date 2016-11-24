@@ -2,9 +2,9 @@
 <section id="header">
     <header>
         <span class="image avatar"><img src="<?= base_url(); ?>assets/images/fitness.png" alt="" /></span>
-        <h1 id="logo"><a href="#">Willis Corto</a></h1>
-        <p>I got reprogrammed by a rogue AI<br />
-            and now I'm totally cray</p>
+        <h1 id="logo"><a href="#">Administrator</a></h1>
+        <p>Welcome to Nine.40<br />
+            Future Mom's Fitness</p>
     </header>
     <nav id="nav">
         <ul>

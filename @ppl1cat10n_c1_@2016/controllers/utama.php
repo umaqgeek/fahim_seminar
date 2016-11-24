@@ -20,7 +20,9 @@ class Utama extends CI_Controller
     }
 
     public function index() {
-        $this->viewpage();
+        $this->load->model('m_post_page');
+        $data['post_page'] = $this->m_post_page->getAll();
+        $this->viewpage('index', $data);
     }
 
     public function loginpage() {
@@ -28,7 +30,7 @@ class Utama extends CI_Controller
     }
     
     public function loginprocess() {
-        
+        redirect(site_url('admin'));
     }
 
 }
