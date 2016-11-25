@@ -50,19 +50,25 @@ class Utama extends CI_Controller
                 
             } else if (isset($image['upload_data']['file_name'])) {
                 
+                $datetime = date('Y-m-d H:i:s');
                 $data_sr = array(
                     'sr_name' => $arr['name'],
                     'sr_email' => $arr['email'],
                     'sr_phone' => $arr['phone'],
                     'sr_address' => $arr['address'],
                     'sr_resit' => $image['upload_data']['file_name'],
-                    'sr_datetime' => date('Y-m-d H:i:s'),
+                    'sr_datetime' => $datetime,
                     'srs_id' => 1
                 );
                 $this->load->model('m_seminar_registration');
                 $sr_id = $this->m_seminar_registration->add($data_sr);
                 
                 if ($sr_id) {
+                    $subject = "Nine.40 Trainer - Seminar Registration Request";
+                    $id = $this->my_func->format_digit($sr_id);
+                    $link = site_url("admin/manageregistration?page=two");
+                    $msg = "User ID N4T".$id." had registered. Please revise the request at this link - ".$link.".";
+                    $this->my_func->send_email_allAdmins($subject, $msg, $datetime);
                     $this->session->set_flashdata('sucess', 'Thank you, your registration request is success.<br />'
                             . 'We will revise it and inform you through your email.');   
                 } else {
@@ -81,6 +87,12 @@ class Utama extends CI_Controller
 
     public function loginpage() {
         $this->viewpage('login', '', 'menulogin');
+    }
+    
+    private function test_email() {
+        $date = date('Y-m-d H:i:s');
+        $bol = $this->my_func->send_email('umaqgeek@gmail.com', 'Test nine40trainer', 'Test anta php date: '.$date);
+        die("Status: ".$bol);
     }
     
     public function loginprocess() {

@@ -1,12 +1,11 @@
 <?php
 
-class M_seminar_registration extends CI_Model {
+class M_users extends CI_Model {
 
     function getAll() {
         $this->db->select('*');
-        $this->db->from('seminar_registration sr, sr_status srs');
-        $this->db->where('sr.srs_id = srs.srs_id');
-        $this->db->order_by('sr.sr_datetime', 'DESC');
+        $this->db->from('users u, users_type ut');
+        $this->db->where('u.ut_id = ut.ut_id');
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $r) {
@@ -18,9 +17,9 @@ class M_seminar_registration extends CI_Model {
 
     function get($id) {
         $this->db->select('*');
-        $this->db->from('seminar_registration sr, sr_status srs');
-        $this->db->where('sr.srs_id = srs.srs_id');
-        $this->db->where('sr.sr_id', $id);
+        $this->db->from('users u, users_type ut');
+        $this->db->where('u.ut_id = ut.ut_id');
+        $this->db->where('u.u_id', $id);
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $r) {
@@ -31,7 +30,7 @@ class M_seminar_registration extends CI_Model {
     }
 
     function add($data) {
-        if ($this->db->insert('seminar_registration', $data)) {
+        if ($this->db->insert('users', $data)) {
             return $this->db->insert_id();
         } else {
             return 0;
@@ -39,13 +38,13 @@ class M_seminar_registration extends CI_Model {
     }
 
     function edit($id, $data) {
-        $this->db->where('sr_id', $id);
-        return $this->db->update('seminar_registration', $data);
+        $this->db->where('u_id', $id);
+        return $this->db->update('users', $data);
     }
 
     function delete($id) {
-        $this->db->where('sr_id', $id);
-        return $this->db->delete('seminar_registration');
+        $this->db->where('u_id', $id);
+        return $this->db->delete('users');
     }
 
 }

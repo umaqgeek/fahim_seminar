@@ -133,6 +133,7 @@
 
 		.container {
 			width: 42em;
+                        overflow-x: scroll;
 		}
 
 	}
@@ -2619,7 +2620,7 @@
 		border-top: 0;
 		color: #c0c0c0;
 		overflow: hidden;
-		padding: 4em 0 2em 0;
+		/*padding: 4em 0 2em 0;*/
 	}
 
 		#footer .copyright {
@@ -2980,6 +2981,7 @@
 
 			#main > section > .container {
 				padding: 2em 0 0 0;
+                                overflow-x: scroll;
 			}
 
 		/* One */
@@ -3462,4 +3464,13 @@ transparent-button{display:inline-block;cursor:pointer;
                    border-radius:4px;font-weight:400;font-size:.875rem;
                    text-shadow:0 1px 2px rgba(0,0,0,.1);
                    background:0 0;color:#fff
+}
+
+.footer {
+    background-color: #252e33;
+    color: white;
+    border: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

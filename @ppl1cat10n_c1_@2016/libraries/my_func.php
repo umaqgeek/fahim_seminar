@@ -40,122 +40,6 @@ class My_Func {
 		}
 	}
 	
-	public function getCurrency() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_currency_type;
-		} else {
-			return 'MYR';
-		}
-	}
-        
-        public function getGST() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_gst_rate;
-		} else {
-			return 0.06;
-		}
-	}
-        
-        public function getMintingMaximum() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_minting_maximum;
-		} else {
-			return 100.00;
-		}
-	}
-        
-        public function getMinimumTrans() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_minimum_trans;
-		} else {
-			return 1.00;
-		}
-	}
-        
-        public function getAdminBankAccount() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_admin_bank_account;
-		} else {
-			return "04042010006119";
-		}
-	}
-        
-        public function getAdminBankName() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_admin_bank_name;
-		} else {
-			return "Koperasi DinarPal Melaka Berhad";
-		}
-	}
-        
-        public function getMaintenance() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-                        if ($dc[0]->dc_maintenance == 1) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-		} else {
-			return false;
-		}
-	}
-        
-        public function getCommissionGramRate($it_id=1, $weight=0) {
-		$CI = $this->obj;
-		$it = $CI->m_item_type->get($it_id);
-		if (isset($it) && !empty($it)) {
-			$rate_gram = $it[0]->it_comm_rate_gram;
-                        $rate_money = $it[0]->it_comm_rate_money;
-                        $pay_rate = ($rate_money * 1.0 / $rate_gram) * $weight;
-                        return $pay_rate;
-		} else {
-			return 1.00;
-		}
-	}
-        
-        public function getVerificationRate() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_verification_rate;
-		} else {
-			return 10.00;
-		}
-	}
-        
-        public function getGeneologyRate() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-		if (isset($dc) && !empty($dc)) {
-			return $dc[0]->dc_geneology_rate;
-		} else {
-			return 0.10;
-		}
-	}
-        
-        public function getMeAdminHQ() {
-		$CI = $this->obj;
-		$dc = $CI->m_dinarpal_config->getAll();
-                $me_username_hq = (isset($dc) && !empty($dc)) ? ($dc[0]->dc_hq_username) : ("dphq");
-                $me_hq = $CI->m_members->getByName($me_username_hq);
-                $me_id_hq = (isset($me_hq) && !empty($me_hq)) ? ($me_hq[0]->me_id) : (0);
-                return $me_id_hq;
-	}
-	
 	public function trim_array($arr) {
 		$newArr = array();
 		foreach ($arr as $key => $ar) {
@@ -448,7 +332,7 @@ class My_Func {
 		return $data;
 	}
 	
-	public function dinarpal_encrypt($text) {
+	public function n4t_encrypt($text) {
 		$CI = $this->obj;
 		//$data = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $CI->config->item('encryption_key'), $text, MCRYPT_MODE_ECB, '1');
         //return base64_encode($data);
@@ -466,7 +350,7 @@ class My_Func {
 		return $val2;
 	}
 	
-	public function dinarpal_decrypt($text) {
+	public function n4t_decrypt($text) {
 		$CI = $this->obj;
 		//$text = base64_decode($text);
         //return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $CI->config->item('encryption_key'), $text, MCRYPT_MODE_ECB, '1');
@@ -556,17 +440,6 @@ class My_Func {
             /*
             $config = Array(
                 'protocol' => 'smtp',
-                'smtp_host' => 'webmail.dinarpal.com',
-                'smtp_port' => 25,
-                'smtp_user' => 'support@dinarpal.com',
-                'smtp_pass' => '#@!321Cba',
-                'mailtype'  => 'html', 
-                'charset'   => 'iso-8859-1'
-            );
-            //*/
-            /*
-            $config = Array(
-                'protocol' => 'smtp',
                 'smtp_host' => 'ssl://smtp.googlemail.com',
                 'smtp_port' => 465,
                 'smtp_user' => 'umar@tuffah.info',
@@ -580,8 +453,8 @@ class My_Func {
                 'protocol' => 'smtp',
                 'smtp_host' => 'ssl://smtp.googlemail.com',
                 'smtp_port' => 465,
-                'smtp_user' => 'dinarpal13@gmail.com',
-                'smtp_pass' => 'Abc123!@#',
+                'smtp_user' => 'nine40trainer89@gmail.com',
+                'smtp_pass' => '#@!321Cba',
                 'mailtype'  => 'html', 
                 'charset'   => 'UTF-8'
             );
@@ -603,7 +476,7 @@ class My_Func {
         //send email activation
         function send_email($to, $subject, $msg) {
             
-            $to = $to . ", dinarpal13@gmail.com";
+            $to = $to . ", nine40trainer89@gmail.com";
             
 //            print_r($to); die();
             
@@ -613,7 +486,7 @@ class My_Func {
             
             $this->CI->load->library('email', $config);
             $this->CI->email->set_newline("\r\n");
-            $this->CI->email->from('support@dinarpal.com', 'DinarPal');
+            $this->CI->email->from('nine40trainer89@gmail.com', 'Nine.40.Trainer');
             $this->CI->email->to($to);
 
             $this->CI->email->subject($subject);
@@ -956,116 +829,6 @@ class My_Func {
             }
         }
         
-        function getVaucher($code) {
-            $CI = $this->obj;
-            $str = $this->dinarpal_decrypt($code);
-//            echo $str;
-            $strpecah = explode('|', $str);
-            $v_id = 0;
-            $v_cert = '-';
-            if (isset($strpecah[0]) && !empty($strpecah[0])) {
-                $strpecah2 = explode('V', $strpecah[0]);
-                if (isset($strpecah2[1]) && !empty($strpecah2[1])) {
-                    $v_id = $strpecah2[1];
-                }
-            }
-            if (isset($strpecah[1]) && !empty($strpecah[1])) {
-                $v_cert = $strpecah[1];
-            }
-//            echo $v_id . ':' . $v_cert;
-            $vault = $CI->m_vault->getVaucher($v_id, $v_cert);
-            if (isset($vault) && !empty($vault)) {
-                $v = array();
-                foreach ($vault[0] as $vkey => $vval) {
-                    $v[$vkey] = $vval;
-                }
-                return $v;
-            } else {
-                return array();
-            }
-        }
-        
-        function getVaultImages($v_id) {
-            $CI = $this->obj;
-            $vault = $CI->m_vault->get($v_id);
-            $imgs = "";
-            if (isset($vault) && !empty($vault)) {
-                $items = $vault[0];
-                $noImage = $this->getNoImage(1);
-                $vimg1 = (isset($items->v_image) && !empty($items->v_image) && $items->v_image != null && $items->v_image != "") ?
-                        ($items->v_image) : ($noImage);
-                $vimg2 = (isset($items->v_image2) && !empty($items->v_image2) && $items->v_image2 != null && $items->v_image2 != "") ?
-                        ($items->v_image2) : ($noImage);
-                $vimg3 = (isset($items->v_image3) && !empty($items->v_image3) && $items->v_image3 != null && $items->v_image3 != "") ?
-                        ($items->v_image3) : ($noImage);
-                $vimg4 = (isset($items->v_image4) && !empty($items->v_image4) && $items->v_image4 != null && $items->v_image4 != "") ?
-                        ($items->v_image4) : ($noImage);
-                $vimg5 = (isset($items->v_image5) && !empty($items->v_image5) && $items->v_image5 != null && $items->v_image5 != "") ?
-                        ($items->v_image5) : ($noImage);
-                if (isset($items->v_image) && !empty($items->v_image) && $items->v_image != null && $items->v_image != "" && $items->v_image != $noImage) {
-                    $imgs .= '<a onclick="magicToolboxOnChangeSelector(this);" href="' . base_url() 
-                            . 'assets/uploads/items/' . $vimg1 
-                            . '" rel="zoom-id:MagicZoomPlusImage14063;caption-source:a:title;zoom-width:550;zoom-height:550;show-title:false;" '
-                            . 'rev="'. base_url() . 'assets/uploads/items/' 
-                            . $vimg1 .'" class="MagicThumb-swap" style="outline: none; display: inline-block;">
-                            <img src="'. base_url() . 'assets/uploads/items/'. $vimg1 
-                            . '" alt="" style="max-height: 50px; max-width: 50px"></a>';
-                } 
-                if (isset($items->v_image2) && !empty($items->v_image2) && $items->v_image2 != null && $items->v_image2 != "" && $items->v_image2 != $noImage) {
-                    $imgs .= '<a onclick="magicToolboxOnChangeSelector(this);" href="' . base_url() 
-                            . 'assets/uploads/items/' . $vimg2 
-                            . '" rel="zoom-id:MagicZoomPlusImage14063;caption-source:a:title;zoom-width:550;zoom-height:550;show-title:false;" '
-                            . 'rev="'. base_url() . 'assets/uploads/items/' 
-                            . $vimg2 .'" class="MagicThumb-swap" style="outline: none; display: inline-block;">
-                            <img src="'. base_url() . 'assets/uploads/items/'. $vimg2 
-                            . '" alt="" style="max-height: 50px; max-width: 50px"></a>';
-                } 
-                if (isset($items->v_image3) && !empty($items->v_image3) && $items->v_image3 != null && $items->v_image3 != "" && $items->v_image3 != $noImage) {
-                    $imgs .= '<a onclick="magicToolboxOnChangeSelector(this);" href="' . base_url() 
-                            . 'assets/uploads/items/' . $vimg3 
-                            . '" rel="zoom-id:MagicZoomPlusImage14063;caption-source:a:title;zoom-width:550;zoom-height:550;show-title:false;" '
-                            . 'rev="'. base_url() . 'assets/uploads/items/' 
-                            . $vimg3 .'" class="MagicThumb-swap" style="outline: none; display: inline-block;">
-                            <img src="'. base_url() . 'assets/uploads/items/'. $vimg3 
-                            . '" alt="" style="max-height: 50px; max-width: 50px"></a>';
-                } 
-                if (isset($items->v_image4) && !empty($items->v_image4) && $items->v_image4 != null && $items->v_image4 != "" && $items->v_image4 != $noImage) {
-                    $imgs .= '<a onclick="magicToolboxOnChangeSelector(this);" href="' . base_url() 
-                            . 'assets/uploads/items/' . $vimg4 
-                            . '" rel="zoom-id:MagicZoomPlusImage14063;caption-source:a:title;zoom-width:550;zoom-height:550;show-title:false;" '
-                            . 'rev="'. base_url() . 'assets/uploads/items/' 
-                            . $vimg4 .'" class="MagicThumb-swap" style="outline: none; display: inline-block;">
-                            <img src="'. base_url() . 'assets/uploads/items/'. $vimg4 
-                            . '" alt="" style="max-height: 50px; max-width: 50px"></a>';
-                } 
-                if (isset($items->v_image5) && !empty($items->v_image5) && $items->v_image5 != null && $items->v_image5 != "" && $items->v_image5 != $noImage) {
-                    $imgs .= '<a onclick="magicToolboxOnChangeSelector(this);" href="' . base_url() 
-                            . 'assets/uploads/items/' . $vimg5 
-                            . '" rel="zoom-id:MagicZoomPlusImage14063;caption-source:a:title;zoom-width:550;zoom-height:550;show-title:false;" '
-                            . 'rev="'. base_url() . 'assets/uploads/items/' 
-                            . $vimg5 .'" class="MagicThumb-swap" style="outline: none; display: inline-block;">
-                            <img src="'. base_url() . 'assets/uploads/items/'. $vimg5 
-                            . '" alt="" style="max-height: 50px; max-width: 50px"></a>';
-                } 
-            }
-            return $imgs;
-        }
-        
-        function getFee($ft_id, $amount=1) {
-            $CI = $this->obj;
-            $ft = $CI->m_fee_type->get($ft_id);
-            $ft_price = 0.00;
-            if (isset($ft) && !empty($ft)) {
-                $ft_type = $ft[0]->ft_type;
-                $ft_price = $ft[0]->ft_price;
-                if ($ft_type == 'STATIC') {
-                    $ft_price = $ft_price;
-                } else if ($ft_type == 'DYNAMIC') {
-                    $ft_price = $ft_price * $amount;
-                }
-            }
-            return $ft_price;
-        }
         
         function getShortString($str, $limit=20) {
             $s = "";
@@ -1080,11 +843,12 @@ class My_Func {
         
         function send_email_allAdmins($subject, $msg, $tr_datetime) {
             $CI = $this->obj;
-            $all_admins = $CI->m_members->getAll_Staff(2);
+            $CI->load->model('m_users');
+            $all_admins = $CI->m_users->getAll();
             if (isset($all_admins) && !empty($all_admins)) {
                 foreach ($all_admins as $aa) {
                     // send email
-                    $to = $aa->me_email;
+                    $to = $aa->u_email;
                     $msg1 = "[" . $this->sql_time_to_datetime($tr_datetime) . "] " . $msg;
                     $this->send_email($to, $subject, $msg1);
                 }

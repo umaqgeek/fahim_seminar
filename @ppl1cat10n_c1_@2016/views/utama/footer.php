@@ -1,4 +1,9 @@
 
+<br />
+<br />
+<br />
+<br />
+
 <?php if(isset($error)) { ?>
 <div class="modal collapse" id="basicModalError" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog" style="margin-top:10%;">
@@ -75,7 +80,7 @@
 <?php } ?>
 
 <!-- Footer -->
-<section id="footer" style="margin-top: 30%;">
+<section id="footer" class="footer" style="margin-top: 30%;">
     <div class="container">
         <ul class="copyright">
             <li>&copy; Nine 40 Trainer. All rights reserved.</li>

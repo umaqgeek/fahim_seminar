@@ -29,9 +29,35 @@ class Admin extends MY_Controller
         return $post_array;
     }     
     
-    public function manageregistration()
+    public function manageregistration($status='view')
     {
-        $this->viewpage('managereg/index');
+        if ($status == 'view') {
+            $this->load->model('m_seminar_registration');
+            $data['seminar_registration'] = $this->m_seminar_registration->getAll();
+            $this->viewpage('managereg/index', $data);
+        } else if ($status == 'edit') {
+            if ($this->input->get('sr')) {
+                $srx = $this->input->get('sr');
+                $sr_id = $this->my_func->n4t_decrypt($srx);
+                $this->load->model('m_seminar_registration');
+                $data['seminar_registration'] = $this->m_seminar_registration->get($sr_id);
+                $this->viewpage('managereg/editreg', $data);
+            } else {
+                redirect(site_url('admin/logout'));
+            }
+        } else if ($status == 'delete') {
+            if ($this->input->get('sr')) {
+                $srx = $this->input->get('sr');
+                $sr_id = $this->my_func->n4t_decrypt($srx);
+                $this->load->model('m_seminar_registration');
+                $this->m_seminar_registration->delete($sr_id);
+                redirect(site_url('admin/manageregistration?page=two'));
+            } else {
+                redirect(site_url('admin/logout'));
+            }
+        } else {
+            redirect(site_url('admin/logout'));
+        }
     }
 
     public function viewpage($page = 'index', $data = array())
