@@ -48,19 +48,19 @@
     <section id="four">
         <div class="container">
             <h3>Registration</h3>
-            <form method="post" action="#">
+            <form method="post" action="<?=site_url('utama/registerprocess'); ?>" enctype="multipart/form-data">
                 <div class="row uniform">
-                    <div class="6u 12u(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
-                    <div class="6u 12u(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
+                    <div class="6u 12u(xsmall)"><input type="text" name="name" id="name" placeholder="Name" required="" /></div>
+                    <div class="6u 12u(xsmall)"><input type="email" name="email" id="email" placeholder="Email" required="" /></div>
                 </div>
                 <div class="row uniform">
-                    <div class="12u"><input type="text" name="phone" id="phone" placeholder="Phone No." /></div>
+                    <div class="12u"><input type="text" name="phone" id="phone" placeholder="Phone No." required="" /></div>
                 </div>
                 <div class="row uniform">
                     <div class="12u"><textarea name="address" id="address" placeholder="Address" rows="6"></textarea></div>
                 </div>
                 <div class="row uniform">
-                    <div class="12u"><input type="file" name="resit" id="resit" class="form-control" placeholder="Phone No." /></div>
+                    <div class="12u"><input type="file" name="resit" id="resit" class="form-control" placeholder="Phone No." required="" /></div>
                 </div>
                 <div class="row uniform">
                     <div class="12u">

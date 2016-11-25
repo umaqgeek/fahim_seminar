@@ -35,7 +35,7 @@ define('PHPASS_HASH_PORTABLE', false);
 class SimpleLoginSecure
 {
 	var $CI;
-	var $user_table = 'members';
+	var $user_table = 'users';
         
         function get_config_email() {
             
@@ -474,52 +474,34 @@ class SimpleLoginSecure
 	 * @param	string
 	 * @return	bool
 	 */
-	function login($me_username = '', $me_password = '') 
+	function login($u_username = '', $u_password = '') 
 	{
 		$this->CI =& get_instance();
 
-		if($me_username == '' OR $me_password == '')
+		if($u_username == '' OR $u_password == '') {
+                        $this->CI->session->set_flashdata('error', 'Do not leave blank!');
 			return false;
+                }
 
 
 		//Check if already logged in
-		if($this->CI->session->userdata('me_username') == $me_username)
+		if($this->CI->session->userdata('u_username') == $u_username)
 			return true;
 		
 		
 		//Check against user table
-		$this->CI->db->where('me_username', $me_username); 
-		$this->CI->db->where('me_activation_status <> 1'); //make sure the email is activated
+		$this->CI->db->where('u_username', $u_username); 
 		$query = $this->CI->db->get_where($this->user_table);
 		
 		if ($query->num_rows() > 0) 
 		{
                     
-			$user_data = $query->row_array(); 
-                        
-//                        print_r($user_data); die();
-                        
-                        $this->CI->db->select('me_last_login');
-                        $this->CI->db->from($this->user_table);
-                        $this->CI->db->where('me_id', $user_data['me_id']);
-                        $query2 = $this->CI->db->get();
-                        if ($query2->num_rows() > 0) {
-                            $d2 = $query2->row_array();
-                            if ($d2['me_last_login'] == NULL || $d2['me_last_login'] == '' || $d2['me_last_login'] == null) {
-                                $info = 'Thank You for choosing Dinarpal for your platform <br/>Please fill in all your personal detail<br />and deposit your money for your account verification.';
-                                $user_data['msg_login'] = $info;
-                            }
+			$user_data = $query->row_array();
+
+			if ($u_password != $user_data['u_password']) {
+                            $this->CI->session->set_flashdata('error', 'Invalid password!');
+                            return false;
                         }
-
-			$hasher = new PasswordHash(PHPASS_HASH_STRENGTH, PHPASS_HASH_PORTABLE);
-
-			if(!$hasher->CheckPassword($me_password, $user_data['me_password']))
-			{
-				//echo "hoho1"; die();
-				return false;
-			}
-				
-			//echo $me_password.'|'.$user_data['me_password']; die();
 
 			//Destroy old session
 			$this->CI->session->sess_destroy();
@@ -527,10 +509,8 @@ class SimpleLoginSecure
 			//Create a fresh, brand new session
 			$this->CI->session->sess_create();
 
-			$this->CI->db->simple_query('UPDATE ' . $this->user_table  . ' SET me_last_login = "' . date('c') . '" WHERE me_id = ' . $user_data['me_id']);
-
 			//Set session data
-			unset($user_data['me_password']);
+			unset($user_data['u_password']);
 			//$user_data['member'] = $user_data['me_username']; // for compatibility with Simplelogin
 			$user_data['logged_in'] = true;
 			$this->CI->session->set_userdata($user_data);
@@ -539,6 +519,7 @@ class SimpleLoginSecure
 		} 
 		else 
 		{
+                        $this->CI->session->set_flashdata('error', 'Invalid username!');
 			return false;
 		}	
 

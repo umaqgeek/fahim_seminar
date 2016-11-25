@@ -15,6 +15,9 @@
         
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/images/fitness.png">
         
+        <link href="<?php echo base_url() . 'assets/css/jquery.dataTables.min.css' ?>" rel="stylesheet">
+        <link href="<?php echo base_url() . 'assets/css/breadcrumb.css' ?>" rel="stylesheet">
+        
         <!-- Scripts -->
         <script src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
         <script src="<?= base_url(); ?>assets/js/jquery.scrollzer.min.js"></script>

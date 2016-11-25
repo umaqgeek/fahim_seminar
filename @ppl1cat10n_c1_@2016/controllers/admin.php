@@ -42,10 +42,18 @@ class Admin extends MY_Controller
         }
         $data1['page1'] = $page1;
         
+        // check for the flashdata
+        if ($this->session->flashdata('error') != "") 
+                $data1['error'] = $this->session->flashdata('error');
+        if ($this->session->flashdata('sucess') != "") 
+                $data1['sucess'] = $this->session->flashdata('sucess');
+        if ($this->session->flashdata('info') != "") 
+                $data1['info'] = $this->session->flashdata('info');
+        
         echo $this->load->view('admin/header', $data, true);
         echo $this->load->view('admin/menu', $data1, true);
         echo $this->load->view('admin/' . $page, $data, true);
-        echo $this->load->view('admin/footer', $data, true);
+        echo $this->load->view('admin/footer', $data1, true);
     }
     
     public function logout() {
