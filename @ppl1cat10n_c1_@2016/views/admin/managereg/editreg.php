@@ -13,7 +13,7 @@
                     <td height="600">
                         <p>
                             
-                            <a href="<?=site_url('admin/manageregistration?page=two'); ?>">
+                            <a href="<?=site_url('admin/index?page=one1'); ?>">
                                 <button type="button" class="button green-button"> &lt;&lt; Back </button>
                             </a>
                                 

@@ -9,9 +9,9 @@
     <nav id="nav">
         <ul>
             <li><a href="<?=site_url('admin/index'); ?>?page=one1" 
-                <?php if ($page1 == 'one1') { ?>class="active"<?php } ?>>Manage Post</a></li>
-            <li><a href="<?=site_url('admin/manageregistration'); ?>?page=two" 
-                   <?php if ($page1 == 'two') { ?>class="active"<?php } ?>>Manage Registration</a></li>
+                <?php if ($page1 == 'one1') { ?>class="active"<?php } ?>>Manage Registration</a></li>
+            <li><a href="<?=site_url('admin/managepost'); ?>?page=two" 
+                   <?php if ($page1 == 'two') { ?>class="active"<?php } ?>>Manage Post</a></li>
             <li><a href="<?=site_url('admin/logout'); ?>">Log Out</a></li>
         </ul>
     </nav>

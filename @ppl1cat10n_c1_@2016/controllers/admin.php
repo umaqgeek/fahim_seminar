@@ -6,30 +6,7 @@ class Admin extends MY_Controller
         parent::__construct();
     }
 
-    public function index()
-    {
-        $crud = new grocery_CRUD();
-        
-        $crud->set_table('post_page');
-        $crud->display_as('pp_title', 'Title')
-                ->display_as('pp_post', 'Post')
-                ->display_as('pp_priority', 'Post Priority (Top: 1)');
-        $crud->columns('pp_title', 'pp_priority', 'pp_datetime');
-        $crud->fields('pp_title', 'pp_post', 'pp_priority');
-        $crud->callback_before_insert(array($this, 'post_page_add_date'));
-        
-        $data = $crud->render();
-        
-        $this->viewpage('managepost/index', $data);
-    }
-    
-    function post_page_add_date($post_array) {
-        $date = date('Y-m-d H:i:s');
-        $post_array['pp_datetime'] = $date;
-        return $post_array;
-    }     
-    
-    public function manageregistration($status='view')
+    public function index($status='view')
     {
         if ($status == 'view') {
             $this->load->model('m_seminar_registration');
@@ -50,14 +27,81 @@ class Admin extends MY_Controller
                 $srx = $this->input->get('sr');
                 $sr_id = $this->my_func->n4t_decrypt($srx);
                 $this->load->model('m_seminar_registration');
-                $this->m_seminar_registration->delete($sr_id);
-                redirect(site_url('admin/manageregistration?page=two'));
+                $sr = $this->m_seminar_registration->get($sr_id);
+                if (isset($sr) && !empty($sr)) {
+                    $to = $sr[0]->sr_email;
+                    $subject = "Nine.40 Trainer - Registration Rejected";
+                    $time = date('Y-m-d H:i:s');
+                    $msg = "[" . $this->my_func->sql_time_to_datetime($time) . "] Opss! We're sorry, your registration request has been rejected.";
+                    $bol_email = $this->my_func->send_email($to, $subject, $msg);
+                    if ($bol_email) {
+                        $data_sr = array(
+                            'srs_id' => 3
+                        );
+                        $this->m_seminar_registration->edit($sr_id, $data_sr);
+                    } else {
+                        $this->session->set_flashdata('error', 'Opss! Rejection failed!!');
+                    }
+                } else {
+                    $this->session->set_flashdata('error', 'Invalid user!');
+                }
+                redirect(site_url('admin/index?page=one1'));
+            } else {
+                redirect(site_url('admin/logout'));
+            }
+        } else if ($status == 'approve') {
+            if ($this->input->get('sr')) {
+                $srx = $this->input->get('sr');
+                $sr_id = $this->my_func->n4t_decrypt($srx);
+                $this->load->model('m_seminar_registration');
+                $sr = $this->m_seminar_registration->get($sr_id);
+                if (isset($sr) && !empty($sr)) {
+                    $to = $sr[0]->sr_email;
+                    $subject = "Nine.40 Trainer - Registration Approved";
+                    $time = date('Y-m-d H:i:s');
+                    $msg = "[" . $this->my_func->sql_time_to_datetime($time) . "] Congratulation, your registration request has been approved.";
+                    $bol_email = $this->my_func->send_email($to, $subject, $msg);
+                    if ($bol_email) {
+                        $data_sr = array(
+                            'srs_id' => 2
+                        );
+                        $this->m_seminar_registration->edit($sr_id, $data_sr);
+                    } else {
+                        $this->session->set_flashdata('error', 'Opss! Approval failed!!');
+                    }
+                } else {
+                    $this->session->set_flashdata('error', 'Invalid user!');
+                }
+                redirect(site_url('admin/index?page=one1'));
             } else {
                 redirect(site_url('admin/logout'));
             }
         } else {
             redirect(site_url('admin/logout'));
         }
+    }
+    
+    function post_page_add_date($post_array) {
+        $date = date('Y-m-d H:i:s');
+        $post_array['pp_datetime'] = $date;
+        return $post_array;
+    }     
+    
+    public function managepost($status='view')
+    {
+//        $crud = new grocery_CRUD();
+//        
+//        $crud->set_table('post_page');
+//        $crud->display_as('pp_title', 'Title')
+//                ->display_as('pp_post', 'Post')
+//                ->display_as('pp_priority', 'Post Priority (Top: 1)');
+//        $crud->columns('pp_title', 'pp_priority', 'pp_datetime');
+//        $crud->fields('pp_title', 'pp_post', 'pp_priority');
+//        $crud->callback_before_insert(array($this, 'post_page_add_date'));
+//        
+//        $data = $crud->render();
+        
+        $this->viewpage('managepost/index');
     }
 
     public function viewpage($page = 'index', $data = array())

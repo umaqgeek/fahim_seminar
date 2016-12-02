@@ -7,19 +7,15 @@
     </header>
     <nav id="nav">
         <ul>
+            <li><a href="#one">About Us</a></li>
+            <li><a href="#trainer">Your Trainer</a></li>
             <?php 
             $i = 1;
             if (isset($post_page) && !empty($post_page)) {
                 foreach ($post_page as $pp) {
-                    if ($i == 1) {
                         ?>
-            <li><a href="#one"><?=$pp->pp_title; ?></a></li>
-            <?php
-                    } else {
-                    ?>
             <li><a href="#section_<?=$pp->pp_id; ?>"><?=$pp->pp_title; ?></a></li>
             <?php
-                    }
             $i += 1;
                 }
             }

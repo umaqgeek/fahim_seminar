@@ -17,7 +17,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>ID<br />Name</th>
-                                    <th>E-Mail</th>
                                     <th>Phone No.</th>
                                     <th>Resit</th>
                                     <th>Date Reg.</th>
@@ -41,7 +40,6 @@
                                                 <br />
                                                 <?= $sr->sr_name; ?>
                                             </td>
-                                            <td><?= $sr->sr_email; ?></td>
                                             <td><?= $sr->sr_phone; ?></td>
                                             <td>
                                                 <a target="_blank" href="<?= base_url(); ?>assets/uploads/resit/<?= $sr->sr_resit; ?>">
@@ -51,13 +49,28 @@
                                             <td><?= $this->my_func->sql_time_to_datetime($sr->sr_datetime); ?></td>
                                             <td><?= $sr->srs_desc; ?></td>
                                             <td>
-                                                <a href="<?=site_url('admin/manageregistration/edit/?page=two&sr='.$sr_idx); ?>">
+                                                <a href="<?=site_url('admin/index/edit/?page=two&sr='.$sr_idx); ?>">
                                                     <span class="fa fa-edit"></span>
                                                 </a>
-                                                &nbsp;&nbsp;
-                                                <a onclick="return ask('Are you sure?');" href="<?=site_url('admin/manageregistration/delete/?sr='.$sr_idx); ?>">
+                                                <?php
+                                                $srs_id = $sr->srs_id;
+                                                if ($srs_id == 1) {
+                                                ?>
+                                                <a onclick="return ask('Are you sure want to approve this?');" href="<?=site_url('admin/index/approve/?sr='.$sr_idx); ?>">
+                                                    <span class="fa fa-check"></span>
+                                                </a>
+                                                <a onclick="return ask('Are you sure want to reject this?');" href="<?=site_url('admin/index/delete/?sr='.$sr_idx); ?>">
                                                     <span class="fa fa-remove"></span>
                                                 </a>
+                                                <?php } else if ($srs_id == 2) { ?>
+                                                <a onclick="return ask('Are you sure want to reject this?');" href="<?=site_url('admin/index/delete/?sr='.$sr_idx); ?>">
+                                                    <span class="fa fa-remove"></span>
+                                                </a>
+                                                <?php } else if ($srs_id == 3) { ?>
+                                                <a onclick="return ask('Are you sure want to approve this?');" href="<?=site_url('admin/index/approve/?sr='.$sr_idx); ?>">
+                                                    <span class="fa fa-check"></span>
+                                                </a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php }
