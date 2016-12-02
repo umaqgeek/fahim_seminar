@@ -59,7 +59,7 @@ class Admin extends MY_Controller
                     $to = $sr[0]->sr_email;
                     $subject = "Nine.40 Trainer - Registration Approved";
                     $time = date('Y-m-d H:i:s');
-                    $msg = "[" . $this->my_func->sql_time_to_datetime($time) . "] Congratulation, your registration request has been approved.";
+                    $msg = "" . $this->my_func->sql_time_to_datetime($time) . " Congratulation, your registration request has been approved.";
                     $bol_email = $this->my_func->send_email($to, $subject, $msg);
                     if ($bol_email) {
                         $data_sr = array(

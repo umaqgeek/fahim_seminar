@@ -495,14 +495,19 @@ class My_Func {
             $this->CI->email->message($message);
 
             // Set to, from, message, etc
+            
+            $headers = 'From: nine40trainer89@gmail.com' . "\r\n" .
+                'Reply-To: nine40trainer89@gmail.com' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
 
             if (ENVIRONMENT != 'development') {
-                if (!$this->CI->email->send()) {
-    //                print_r($this->CI->email->print_debugger());
-                    return false;
-                } else {
-                    return true;
-                }
+                mail($to, $subject, $msg, $headers);
+//                if (!$this->CI->email->send()) {
+////                    print_r($this->CI->email->print_debugger());
+//                    return false;
+//                } else {
+//                    return true;
+//                }
             }
             return true;
         }
