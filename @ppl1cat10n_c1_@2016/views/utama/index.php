@@ -3,7 +3,8 @@
     .tagline {
         height: 80px;
         width: 100%;
-        background-color: green;
+        /*background-color: green;*/
+        background-color: #CB99C9;
         padding-top: 50px;
         padding-bottom: 0px;
         font-size: 30px;
