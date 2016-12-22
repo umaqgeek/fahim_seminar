@@ -4,8 +4,9 @@ class M_seminar_registration extends CI_Model {
 
     function getAll() {
         $this->db->select('*');
-        $this->db->from('seminar_registration sr, sr_status srs');
+        $this->db->from('seminar_registration sr, sr_status srs, negeri n');
         $this->db->where('sr.srs_id = srs.srs_id');
+        $this->db->where('sr.n_id = n.n_id');
         $this->db->order_by('sr.sr_datetime', 'DESC');
         $q = $this->db->get();
         if ($q->num_rows() > 0) {
@@ -18,8 +19,9 @@ class M_seminar_registration extends CI_Model {
 
     function get($id) {
         $this->db->select('*');
-        $this->db->from('seminar_registration sr, sr_status srs');
+        $this->db->from('seminar_registration sr, sr_status srs, negeri n');
         $this->db->where('sr.srs_id = srs.srs_id');
+        $this->db->where('sr.n_id = n.n_id');
         $this->db->where('sr.sr_id', $id);
         $q = $this->db->get();
         if ($q->num_rows() > 0) {

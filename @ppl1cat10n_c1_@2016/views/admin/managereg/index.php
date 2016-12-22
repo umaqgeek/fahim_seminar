@@ -49,7 +49,7 @@
                                             <td><?= $this->my_func->sql_time_to_datetime($sr->sr_datetime); ?></td>
                                             <td><?= $sr->srs_desc; ?></td>
                                             <td>
-                                                <a href="<?=site_url('admin/index/edit/?page=two&sr='.$sr_idx); ?>">
+                                                <a href="<?=site_url('admin/index/edit/?page=one1&sr='.$sr_idx); ?>">
                                                     <span class="fa fa-edit"></span>
                                                 </a>
                                                 <?php

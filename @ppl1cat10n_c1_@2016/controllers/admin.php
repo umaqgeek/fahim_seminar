@@ -89,19 +89,157 @@ class Admin extends MY_Controller
     
     public function managepost($status='view')
     {
-//        $crud = new grocery_CRUD();
-//        
-//        $crud->set_table('post_page');
-//        $crud->display_as('pp_title', 'Title')
-//                ->display_as('pp_post', 'Post')
-//                ->display_as('pp_priority', 'Post Priority (Top: 1)');
-//        $crud->columns('pp_title', 'pp_priority', 'pp_datetime');
-//        $crud->fields('pp_title', 'pp_post', 'pp_priority');
-//        $crud->callback_before_insert(array($this, 'post_page_add_date'));
-//        
-//        $data = $crud->render();
-        
-        $this->viewpage('managepost/index');
+        if ($status == 'view') {
+            $this->load->model('m_post_page');
+            $data['post_page'] = $this->m_post_page->getAll();
+            $this->viewpage('managepost/index', $data);
+        } else if ($status == 'add') {
+            
+            $this->load->model('m_post_page');
+            $post_page = $this->m_post_page->getAll();
+            $pp_pr = array();
+            if (isset($post_page) && !empty($post_page)) {
+                foreach ($post_page as $ppx) {
+                    $pp_pr[] = $ppx->pp_priority;
+                }
+            }
+            $pp_priorities = array();
+            for ($im=1; $im<=100; $im++) {
+                if (!in_array($im, $pp_pr)) {
+                    $pp_priorities[] = $im;
+                }
+            }
+            $data['pp_pr'] = $pp_priorities;
+            
+            if ($this->input->post('pp_title')) {
+                $arr = $this->input->post();
+                $arr['pp_datetime'] = date('Y-m-d H:i:s');
+                
+                $arr['pp_post'] = str_replace("\n", "<br />", $arr['pp_post']);
+                
+                $pp_image = array();
+                for ($im=1; $im<=5; $im++) {
+                    $pp_image[$im-1] = $this->my_func->do_upload('pp_image'.$im, './assets/uploads/post/');
+                    if (isset($pp_image[$im-1]['upload_data']['file_name'])) {
+                        $arr['pp_image'.$im] = $pp_image[$im-1]['upload_data']['file_name'];
+                    } else {
+                        $arr['pp_image'.$im] = "";
+                    }
+                }
+                
+                $this->load->model('m_post_page');
+                $pp_id = $this->m_post_page->add($arr);
+                if ($pp_id) {
+                    redirect(site_url('admin/managepost?page=two'));
+                } else {
+                    $this->session->set_flashdata('error', 'Add post failed!!');
+                    redirect(site_url('admin/managepost/add?page=two'));
+                }
+            }
+            $this->viewpage('managepost/add', $data);
+        } else if ($status == 'delete') {
+            if ($this->input->get('pp')) {
+                $ppx = $this->input->get('pp');
+                $pp_id = $this->my_func->n4t_decrypt($ppx);
+                $this->load->model('m_post_page');
+                $pp = $this->m_post_page->get($pp_id);
+                if (isset($pp) && !empty($pp)) {
+                    $this->m_post_page->delete($pp_id);
+                } else {
+                    $this->session->set_flashdata('error', 'Invalid post to be deleted!!');
+                }
+                redirect(site_url('admin/managepost?page=two'));
+            } else {
+                $this->session->set_flashdata('error', 'Invalid post to be deleted!!');
+                redirect(site_url('admin/managepost?page=two'));
+            }
+        } else if ($status == 'edit') {
+            if ($this->input->get('pp')) {
+                $ppx = $this->input->get('pp');
+                $pp_id = $this->my_func->n4t_decrypt($ppx);
+                $this->load->model('m_post_page');
+                $pp = $this->m_post_page->get($pp_id);
+                if (isset($pp) && !empty($pp)) {
+                    
+                    if ($this->input->post('pp_title')) {
+                        $arr = $this->input->post();
+                        
+                        $ppidx = $arr['pp'];
+                        unset($arr['pp']);
+                        $pp_id = $this->my_func->n4t_decrypt($ppidx);
+                        
+                        $arr['pp_datetime'] = date('Y-m-d H:i:s');
+
+                        $arr['pp_post'] = str_replace("\n", "<br />", $arr['pp_post']);
+
+                        $pp_image = array();
+                        for ($im=1; $im<=5; $im++) {
+                            $pp_image[$im-1] = $this->my_func->do_upload('pp_image'.$im, './assets/uploads/post/');
+                            if (isset($pp_image[$im-1]['upload_data']['file_name'])) {
+                                $arr['pp_image'.$im] = $pp_image[$im-1]['upload_data']['file_name'];
+                            }
+                        }
+
+                        $this->load->model('m_post_page');
+                        $pp_id = $this->m_post_page->edit($pp_id, $arr);
+                        if ($pp_id) {
+                            redirect(site_url('admin/managepost?page=two'));
+                        } else {
+                            $this->session->set_flashdata('error', 'Add post failed!!');
+                            redirect(site_url('admin/managepost/add?page=two'));
+                        }
+                    }
+                    
+                    $data['ppid'] = $this->my_func->n4t_encrypt($pp_id);
+                    $data['pp'] = $pp[0];
+                    $this->viewpage('managepost/editpost', $data);
+                    
+                } else {
+                    $this->session->set_flashdata('error', 'Invalid post!!a');
+                    redirect(site_url('admin/managepost?page=two'));
+                }
+            } else {
+                $this->session->set_flashdata('error', 'Invalid post!!b');
+                redirect(site_url('admin/managepost?page=two'));
+            }
+        }
+    }
+    
+    function deleteImage() {
+        if ($this->input->get('ppid')) {
+            $arr = $this->input->get();
+            
+//            print_r($arr); die();
+            
+            $ppid = $arr['ppid'];
+            $pp_id = $this->my_func->n4t_decrypt($ppid);
+            $ppidx = $this->my_func->n4t_encrypt($pp_id);
+            $ims = $arr['ims'];
+            $im = $arr['im'];
+            
+            $this->load->model('m_post_page');
+            $data_sr = array('pp_image'.$ims => '');
+            $bolpp = $this->m_post_page->edit($pp_id, $data_sr);
+            if ($bolpp) {
+                
+                $xim = explode('.', $im);
+                if (isset($xim[1]) && !empty($xim[1])) {
+                    $thumbimg = $xim[0].'_thumb.'.$xim[1];
+//                    echo $im . "<br />";
+//                    echo $thumbimg; die();
+                    unlink("./assets/uploads/post/".$im);
+                    unlink("./assets/uploads/post/".$thumbimg);
+                }
+                
+            } else {
+                $this->session->set_flashdata('error', 'Cannot delete image!!');
+            }
+            redirect(site_url('admin/managepost/edit/?page=two&pp='.$ppidx));
+            
+        } else {
+            $this->session->set_flashdata('error', 'Access denied!!');
+            redirect(site_url('admin/managepost?page=two'));
+        }
     }
 
     public function viewpage($page = 'index', $data = array())

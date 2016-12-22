@@ -32,6 +32,8 @@ class Utama extends CI_Controller
     public function index() {
         $this->load->model('m_post_page');
         $data['post_page'] = $this->m_post_page->getAll();
+        $this->load->model('m_negeri');
+        $data['negeri'] = $this->m_negeri->getAll();
         $this->viewpage('index', $data);
     }
     
@@ -52,10 +54,13 @@ class Utama extends CI_Controller
                 
                 $datetime = date('Y-m-d H:i:s');
                 $data_sr = array(
-                    'sr_name' => $arr['name'],
+                    'sr_name' => strtoupper(strtolower($arr['name'])),
+                    'sr_icno' => strtoupper(strtolower($arr['ic'])),
                     'sr_email' => $arr['email'],
-                    'sr_phone' => $arr['phone'],
-                    'sr_address' => $arr['address'],
+                    'sr_phone' => strtoupper(strtolower($arr['phone'])),
+                    'sr_address' => strtoupper(strtolower($arr['address'])),
+                    'sr_poskod' => strtoupper(strtolower($arr['postcode'])),
+                    'n_id' => $arr['state'],
                     'sr_resit' => $image['upload_data']['file_name'],
                     'sr_datetime' => $datetime,
                     'srs_id' => 1

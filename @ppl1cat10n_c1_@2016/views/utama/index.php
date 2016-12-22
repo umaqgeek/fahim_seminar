@@ -105,6 +105,43 @@
                 <div class="container">
                     <h3><?= $pp->pp_title; ?></h3>
                     <p><?= $pp->pp_post; ?></p>
+                    <div class="row">
+                        <?php if (isset($pp->pp_image1) && !empty($pp->pp_image1)) { ?>
+                        <div class="col-md-4">
+                            <a target="_blank" href="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image1; ?>">
+                                <img style="max-width: 350px; max-height: 350px;" src="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image1; ?>" />
+                            </a>
+                        </div>
+                        <?php } ?>
+                        <?php if (isset($pp->pp_image2) && !empty($pp->pp_image2)) { ?>
+                        <div class="col-md-4">
+                            <a target="_blank" href="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image2; ?>">
+                                <img style="max-width: 350px; max-height: 350px;" src="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image2; ?>" />
+                            </a>
+                        </div>
+                        <?php } ?>
+                        <?php if (isset($pp->pp_image3) && !empty($pp->pp_image3)) { ?>
+                        <div class="col-md-4">
+                            <a target="_blank" href="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image3; ?>">
+                                <img style="max-width: 350px; max-height: 350px;" src="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image3; ?>" />
+                            </a>
+                        </div>
+                        <?php } ?>
+                        <?php if (isset($pp->pp_image4) && !empty($pp->pp_image4)) { ?>
+                        <div class="col-md-4">
+                            <a target="_blank" href="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image4; ?>">
+                                <img style="max-width: 350px; max-height: 350px;" src="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image4; ?>" />
+                            </a>
+                        </div>
+                        <?php } ?>
+                        <?php if (isset($pp->pp_image5) && !empty($pp->pp_image5)) { ?>
+                        <div class="col-md-4">
+                            <a target="_blank" href="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image5; ?>">
+                                <img style="max-width: 350px; max-height: 350px;" src="<?=base_url(); ?>assets/uploads/post/<?= $pp->pp_image5; ?>" />
+                            </a>
+                        </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </section>
                     
@@ -121,13 +158,25 @@
             <form method="post" action="<?=site_url('utama/registerprocess'); ?>" enctype="multipart/form-data">
                 <div class="row uniform">
                     <div class="6u 12u(xsmall)"><input type="text" name="name" id="name" placeholder="Name" required="" /></div>
+                    <div class="6u 12u(xsmall)"><input type="text" name="ic" id="ic" placeholder="IC No." required="" /></div>
+                </div>
+                <div class="row uniform">
                     <div class="6u 12u(xsmall)"><input type="email" name="email" id="email" placeholder="Email" required="" /></div>
+                    <div class="6u 12u(xsmall)"><input type="text" name="phone" id="phone" placeholder="Phone No." required="" /></div>
                 </div>
                 <div class="row uniform">
-                    <div class="12u"><input type="text" name="phone" id="phone" placeholder="Phone No." required="" /></div>
+                    <div class="12u"><textarea name="address" id="address" placeholder="Address" rows="2"></textarea></div>
                 </div>
                 <div class="row uniform">
-                    <div class="12u"><textarea name="address" id="address" placeholder="Address" rows="6"></textarea></div>
+                    <div class="6u 12u(xsmall)"><input type="text" name="postcode" id="postcode" placeholder="Postcode" required="" /></div>
+                    <div class="6u 12u(xsmall)">
+                        <select name="state" id="state" required="">
+                            <option value="">State</option>
+                            <?php if (isset($negeri) && !empty($negeri)) { foreach ($negeri as $n) { ?>
+                            <option value="<?=$n->n_id; ?>"><?=$n->n_desc; ?></option>
+                            <?php } } ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="row uniform">
                     <div class="12u"><input type="file" name="resit" id="resit" class="form-control" placeholder="Phone No." required="" /></div>
